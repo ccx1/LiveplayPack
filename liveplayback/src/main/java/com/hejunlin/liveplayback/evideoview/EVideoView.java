@@ -232,7 +232,6 @@ public class EVideoView extends FrameLayout {
 //            IjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
             IjkMediaPlayer.loadLibrariesOnce(null);
             IjkMediaPlayer.native_profileBegin("libijkplayer.so");
-
             mMediaPlayer = new IjkMediaPlayer();
             mMediaPlayer.setScreenOnWhilePlaying(true);
             try {
