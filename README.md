@@ -1,7 +1,7 @@
 # Android TV直播电视节目
 
 
-[参考demo](https://github.com/hejunlin2013/LivePlayback)
+[参考demo,鸣谢](https://github.com/hejunlin2013/LivePlayback)
 
 原作者有许多无法使用，我进行了修改，并且删除了他的播放库，接入了自己的evideoview。
 
