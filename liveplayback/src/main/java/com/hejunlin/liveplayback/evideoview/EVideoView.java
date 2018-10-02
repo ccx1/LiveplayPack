@@ -230,12 +230,13 @@ public class EVideoView extends FrameLayout {
 //            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1);
             // 开启硬解码
 //            IjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
+            IjkMediaPlayer.loadLibrariesOnce(null);
+            IjkMediaPlayer.native_profileBegin("libijkplayer.so");
 
             mMediaPlayer = new IjkMediaPlayer();
             mMediaPlayer.setScreenOnWhilePlaying(true);
             try {
-                IjkMediaPlayer.loadLibrariesOnce(null);
-                IjkMediaPlayer.native_profileBegin("libijkplayer.so");
+
                 Method method = Class.forName("tv.danmaku.ijk.media.player.IjkMediaPlayer")
                         .getDeclaredMethod("setOption", int.class, String.class, long.class);
                 // 硬编码
