@@ -24,6 +24,11 @@ public class LiveMangager {
         list.add(new DataBean("CCTV13标清", "rtmp://58.200.131.2:1935/livetv/cctv13"));
         list.add(new DataBean("CCTV14标清", "rtmp://58.200.131.2:1935/livetv/cctv14"));
         list.add(new DataBean("CCTV15标清", "rtmp://58.200.131.2:1935/livetv/cctv15"));
+        list.add(new DataBean("温州新闻综合","rtmp://livetv.dhtv.cn:1935/live/news"));
+        list.add(new DataBean("温州经济科教","rtmp://livetv.dhtv.cn:1935/live/financial"));
+        list.add(new DataBean("温州都市生活","rtmp://livetv.dhtv.cn:1935/live/citylife"));
+        list.add(new DataBean("温州公共","rtmp://livetv.dhtv.cn:1935/live/peoples"));
+        list.add(new DataBean("温州瓯江先锋","rtmp://livetv.dhtv.cn:1935/live/oujiangxianfeng"));
         list.add(new DataBean("CGTN", "rtmp://58.200.131.2:1935/livetv/cctv16"));
         list.add(new DataBean("北京卫视", "rtmp://58.200.131.2:1935/livetv/btv1"));
         list.add(new DataBean("北京文艺", "rtmp://58.200.131.2:1935/livetv/btv2"));

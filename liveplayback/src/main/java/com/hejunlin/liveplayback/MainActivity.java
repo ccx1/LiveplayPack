@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
                     .getPackageManager()
                     .getPackageInfo(this.getPackageName(), 0);
             String versionName = packageInfo.versionName;
-            int   versionCode = packageInfo.versionCode;
+            int    versionCode = packageInfo.versionCode;
             version.setText("版本 : " + versionName + "." + versionCode);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
