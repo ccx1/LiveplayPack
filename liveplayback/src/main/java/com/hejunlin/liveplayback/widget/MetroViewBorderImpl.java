@@ -77,21 +77,38 @@ public class MetroViewBorderImpl<X extends View> implements ViewTreeObserver.OnG
             mView.setBackgroundResource(resId);
     }
 
+
+    /**
+     * ViewTreeObserver常用内部类：
+     * 内部类接口	备注
+     * ViewTreeObserver.OnPreDrawListener	当视图树将要被绘制时，会调用的接口
+     * ViewTreeObserver.OnGlobalLayoutListener	当视图树的布局发生改变或者View在视图树的可见状态发生改变时会调用的接口
+     * ViewTreeObserver.OnGlobalFocusChangeListener	当一个视图树的焦点状态改变时，会调用的接口
+     * ViewTreeObserver.OnScrollChangedListener	当视图树的一些组件发生滚动时会调用的接口
+     * ViewTreeObserver.OnTouchModeChangeListener	当视图树的触摸模式发生改变时，会调用的接口
+     */
+
+    // onScrollChanged
     @Override
     public void onScrollChanged() {
         mMetroViewBorder.onScrollChanged(mView, mViewGroup);
     }
 
+    // onGlobalLayout
     @Override
     public void onGlobalLayout() {
         mMetroViewBorder.onLayout(mView, mViewGroup);
     }
 
+
+    // onTouchModeChanged
     @Override
     public void onTouchModeChanged(boolean isInTouchMode) {
         mMetroViewBorder.onTouchModeChanged(mView, mViewGroup, isInTouchMode);
     }
 
+
+    // addOnGlobalFocusChangeListener
     @Override
     public void onGlobalFocusChanged(View oldFocus, View newFocus) {
         try {
@@ -119,6 +136,8 @@ public class MetroViewBorderImpl<X extends View> implements ViewTreeObserver.OnG
         this.mMetroViewBorder = border;
     }
 
+
+    // ViewGroup
     public void attachTo(ViewGroup viewGroup) {
         try {
             if (viewGroup == null) {

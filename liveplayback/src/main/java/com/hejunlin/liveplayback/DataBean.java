@@ -5,8 +5,8 @@ import android.os.Parcelable;
 
 public class DataBean {
 
-    String TVName;
-    String Url;
+    public String TVName;
+    public String Url;
 
     DataBean(String TVName, String url) {
         this.TVName = TVName;

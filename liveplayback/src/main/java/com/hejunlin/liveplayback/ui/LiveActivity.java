@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.hejunlin.liveplayback;
+package com.hejunlin.liveplayback.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,8 +30,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.hejunlin.liveplayback.DataBean;
+import com.hejunlin.liveplayback.LiveMangager;
+import com.hejunlin.liveplayback.R;
+import com.hejunlin.liveplayback.ToastUtil;
 import com.hejunlin.liveplayback.evideoview.EVideoView;
 import com.hejunlin.liveplayback.evideoview.VideoPlayerListener;
 
@@ -52,7 +55,7 @@ public class LiveActivity extends Activity {
     private static final int    CONNECTION_TIMES = 5;
     private int            mCurrentPositiopn;
     private List<DataBean> mList;
-    private ToastUtil mToastUtil;
+    private ToastUtil      mToastUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,7 @@ public class LiveActivity extends Activity {
                     mVideoView.stop();
                     mVideoView.release();
                     mVideoView.setVideoPath(Uri.parse(mVideoUrl));
+                    mVideoView.start();
                 }
                 return false;
             }
@@ -122,6 +126,7 @@ public class LiveActivity extends Activity {
                 switch (i) {
                     case IjkMediaPlayer.MEDIA_INFO_BUFFERING_START:
                         mLoadingLayout.setVisibility(View.VISIBLE);
+                        mVideoView.start();
                         break;
                     case IjkMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START:
                     case IjkMediaPlayer.MEDIA_INFO_BUFFERING_END:
@@ -129,6 +134,7 @@ public class LiveActivity extends Activity {
                         if (mToastUtil != null) {
                             mToastUtil.hide();
                         }
+                        mVideoView.start();
                         break;
                 }
                 return false;

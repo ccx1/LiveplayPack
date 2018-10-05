@@ -6,8 +6,8 @@ android {
         applicationId "com.ccx.liveplayback"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 2
-        versionName "1.3"
+        versionCode 7
+        versionName "2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

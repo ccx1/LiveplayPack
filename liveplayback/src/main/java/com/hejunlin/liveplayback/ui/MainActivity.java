@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hejunlin.liveplayback;
+package com.hejunlin.liveplayback.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -29,6 +29,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hejunlin.liveplayback.OptionItemAdapter;
+import com.hejunlin.liveplayback.R;
 import com.hejunlin.liveplayback.widget.MetroViewBorderImpl;
 
 import java.util.Date;

@@ -248,12 +248,12 @@ public class EVideoView extends FrameLayout {
                 // 是否缓冲
                 method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 1);
                 // 设置缓冲区,单位是kb
-                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "max-buffer-size", 8 * 8 * 1024);
+                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "max-buffer-size", 8 * 8 * 2 * 1024);
                 method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 0);
 //                mediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER,"max-buffer-size",maxCacheSize);
 
 //                method.invoke(mMediaPlayer,IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", 20000);
-                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "buffer_size", 8 * 8 * 1024);
+                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "buffer_size", 8 * 8 * 2 * 1024);
                 method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "infbuf", 1);  // 无限读
                 method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzemaxduration", 100L);
 //                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 10240L);
@@ -264,11 +264,11 @@ public class EVideoView extends FrameLayout {
 
                 // 另一个反射
 //
-//                Method method1 = Class.forName("tv.danmaku.ijk.media.player.IjkMediaPlayer")
-//                        .getDeclaredMethod("setOption", int.class, String.class, String.class);
-//                method1.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "rtsp_transport", "tcp");
-//                method1.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "rtsp_flags", "prefer_tcp");
-//                method1.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "allowed_media_types", "video");
+                Method method1 = Class.forName("tv.danmaku.ijk.media.player.IjkMediaPlayer")
+                        .getDeclaredMethod("setOption", int.class, String.class, String.class);
+                method1.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "rtsp_transport", "tcp");
+                method1.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "rtsp_flags", "prefer_tcp");
+                method1.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "allowed_media_types", "video");
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
