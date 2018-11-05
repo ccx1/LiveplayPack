@@ -28,9 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+        <activitynn
             android:name=".ui.LiveActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape"/>
 
         <!--必须配置-->
         <activity
