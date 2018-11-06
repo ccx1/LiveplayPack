@@ -84,7 +84,7 @@ public class LiveActivity extends Activity {
 
     public void initVideo() {
         // init player
-        mVideoView.setVideoPath(Uri.parse(mVideoUrl));
+        mVideoView.setVideoPath(mVideoUrl);
         mVideoView.setListener(new VideoPlayerListener() {
             @Override
             public void onBufferingUpdate(IMediaPlayer iMediaPlayer, int i) {
@@ -96,7 +96,7 @@ public class LiveActivity extends Activity {
                 mLoadingLayout.setVisibility(View.VISIBLE);
                 mVideoView.stop();
                 mVideoView.release();
-                mVideoView.setVideoPath(Uri.parse(mVideoUrl));
+                mVideoView.setVideoPath(mVideoUrl);
             }
 
             @Override
@@ -115,7 +115,7 @@ public class LiveActivity extends Activity {
                 } else {
                     mVideoView.stop();
                     mVideoView.release();
-                    mVideoView.setVideoPath(Uri.parse(mVideoUrl));
+                    mVideoView.setVideoPath(mVideoUrl);
                     mVideoView.start();
                 }
                 return false;

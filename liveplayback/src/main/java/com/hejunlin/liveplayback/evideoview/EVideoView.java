@@ -1,7 +1,9 @@
 package com.hejunlin.liveplayback.evideoview;
 
 import android.content.Context;
+import android.media.MediaCodec;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.AttrRes;
@@ -21,7 +23,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.player.IjkMediaMeta;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+import tv.danmaku.ijk.media.player.MediaInfo;
 
 
 /**
@@ -37,20 +41,20 @@ public class EVideoView extends FrameLayout {
     /**
      * 由ijkplayer提供，用于播放视频，需要给他传入一个surfaceView
      */
-    private             IMediaPlayer mMediaPlayer = null;
-    public static final int          VIDEO_START  = 1;
-    public static final int          VIDEO_PAUSE  = 2;
+    private             IMediaPlayer        mMediaPlayer    = null;
+    public static final int                 VIDEO_START     = 1;
+    public static final int                 VIDEO_PAUSE     = 2;
     /**
      * 视频文件地址
      */
-    private             String       mPath        = "";
-    private SurfaceView         surfaceView;
-    private VideoPlayerListener listener;
-    private Context             mContext;
-    private boolean isInitMediaPlay = true;
-    private Handler mHandler        = new Handler(Looper.getMainLooper());
-    private Uri     mURI;
-    private boolean isURi;
+    private             String              mPath           = "";
+    private             SurfaceView         surfaceView;
+    private             VideoPlayerListener listener;
+    private             Context             mContext;
+    private             boolean             isInitMediaPlay = true;
+    private             Handler             mHandler        = new Handler(Looper.getMainLooper());
+    private             Uri                 mURI;
+    private             boolean             isURi;
 
     public EVideoView(@NonNull Context context) {
         super(context);
@@ -227,13 +231,15 @@ public class EVideoView extends FrameLayout {
     private void createPlayer() {
         if (mMediaPlayer == null) {
 //            IjkMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_DEBUG);
-//            ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1);
+
             // 开启硬解码
 //            IjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
+            //            IjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1);
             IjkMediaPlayer.loadLibrariesOnce(null);
             IjkMediaPlayer.native_profileBegin("libijkplayer.so");
             mMediaPlayer = new IjkMediaPlayer();
             mMediaPlayer.setScreenOnWhilePlaying(true);
+
             try {
 
                 Method method = Class.forName("tv.danmaku.ijk.media.player.IjkMediaPlayer")
@@ -248,22 +254,23 @@ public class EVideoView extends FrameLayout {
                 // 是否缓冲
                 method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 1);
                 // 设置缓冲区,单位是kb
-                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "max-buffer-size", 8 * 8 * 2 * 1024);
+                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "max-buffer-size", 8 * 8 * 4 * 1024);
                 method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 0);
 //                mediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER,"max-buffer-size",maxCacheSize);
 
 //                method.invoke(mMediaPlayer,IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", 20000);
                 method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "buffer_size", 8 * 8 * 2 * 1024);
                 method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "infbuf", 1);  // 无限读
+                // 预读
                 method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzemaxduration", 100L);
-//                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 10240L);
+                // 开启会无声音
+//                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 1024*10);
                 method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "flush_packets", 1L);
 //  关闭播放器缓冲，这个必须关闭，否则会出现播放一段时间后，一直卡主，控制台打印 FFP_MSG_BUFFERING_START
-//                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0L);
-//                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1L);
+                method.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1L);
 
                 // 另一个反射
-//
+//DEFAULT_LAST_HIGH_WATER_MARK_IN_MS
                 Method method1 = Class.forName("tv.danmaku.ijk.media.player.IjkMediaPlayer")
                         .getDeclaredMethod("setOption", int.class, String.class, String.class);
                 method1.invoke(mMediaPlayer, IjkMediaPlayer.OPT_CATEGORY_FORMAT, "rtsp_transport", "tcp");
